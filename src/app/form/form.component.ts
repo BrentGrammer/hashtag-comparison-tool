@@ -1,18 +1,20 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormArray, FormControl, Validators } from "@angular/forms";
 import * as copy from "copy-to-clipboard";
+import { HashtagsService } from "./hashtags.service";
 
 @Component({
   selector: "app-form",
   templateUrl: "./form.component.html",
-  styleUrls: ["./form.component.css"]
+  styleUrls: ["./form.component.css"],
+  providers: [HashtagsService]
 })
 export class FormComponent implements OnInit {
   hashTagForm: FormGroup;
-  result: string[];
+  commonHashtags: string[];
   formSubmitted: boolean;
 
-  constructor() {}
+  constructor(private hashtagsService: HashtagsService) {}
 
   ngOnInit() {
     this.formSubmitted = false;
@@ -37,8 +39,8 @@ export class FormComponent implements OnInit {
     return (this.hashTagForm.get("tagGroups") as FormArray).controls;
   }
 
-  copyToClipboard(matchText) {
-    copy(matchText);
+  copyToClipboard(text: string) {
+    copy(text);
   }
 
   onResetForm() {
@@ -49,34 +51,8 @@ export class FormComponent implements OnInit {
   onSubmit() {
     this.formSubmitted = true;
     let { tagGroups } = this.hashTagForm.value;
-    const tagGroupsCount = tagGroups.length;
 
-    tagGroups = tagGroups.map(group => group.trim());
-
-    const removeDups = arr => {
-      return arr.filter((tag, idx, array) => {
-        return array.indexOf(tag) === idx;
-      });
-    };
-
-    const all = tagGroups.reduce((tags, group) => {
-      const groupArr = group.split(/[\s\r\n,]+/);
-      const cleanedGroup = removeDups(groupArr);
-      return [...tags, ...cleanedGroup];
-    }, []);
-
-    const occurrences = all.reduce(function(counts, tag) {
-      counts[tag] = counts[tag] + 1 || 1;
-      return counts;
-    }, {});
-
-    const commonTags = Object.keys(occurrences).filter(key => {
-      if (occurrences[key] === tagGroupsCount) return occurrences[key];
-    });
-
-    this.result = commonTags.length
-      ? commonTags
-      : ["No Common Hashtags found."];
+    this.commonHashtags = this.hashtagsService.getCommonHashtags(tagGroups);
 
     setTimeout(() => {
       const scrollingElement = document.scrollingElement || document.body;

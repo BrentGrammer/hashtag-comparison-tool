@@ -64,12 +64,13 @@
     Please enter hashtags and press 'Submit' to get matching results.
   </p>
   <div *ngIf="formSubmitted">
+    <p class="help-block">(Click on the matches to copy to the clipboard)</p>
     <p
       class="match-text mb-0 text-success font-weight-bold"
-      *ngFor="let match of result; let i = index"
-      (click)="copyToClipboard(match)"
+      *ngFor="let hashtag of commonHashtags; let i = index"
+      (click)="copyToClipboard(hashtag)"
     >
-      {{ match }}
+      {{ hashtag }}
     </p>
   </div>
 </div>
