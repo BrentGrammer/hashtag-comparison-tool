@@ -47,7 +47,6 @@ export class FormComponent implements OnInit {
     const tagGroupsCount = tagGroups.length;
 
     tagGroups = tagGroups.map(group => group.trim());
-    //TODO remove any strings that are not in #.. format
 
     const removeDups = arr => {
       return arr.filter((tag, idx, array) => {
@@ -56,7 +55,7 @@ export class FormComponent implements OnInit {
     };
 
     const all = tagGroups.reduce((tags, group) => {
-      const groupArr = group.split(" "); //TODO add multiple whitespace to regex here
+      const groupArr = group.split(/[\s\r\n,]+/);
       const cleanedGroup = removeDups(groupArr);
       return [...tags, ...cleanedGroup];
     }, []);
