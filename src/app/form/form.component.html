@@ -1,19 +1,4 @@
 <form [formGroup]="hashTagForm">
-  <h4>Find common hashtags used on highly viewed Instagram posts!</h4>
-  <h5>Suggested Use:</h5>
-  <ol>
-    <li>
-      Look up a hashtag or search Instagram (or another social media platform)
-      to get a list of posts.
-    </li>
-    <li>
-      Copy and paste the hashtags from the posts with a high like count and
-      paste into a Hashtag group per post.
-    </li>
-    <li>Click the Submit button to display a list of common hashtags to.</li>
-  </ol>
-  <hr />
-
   <div formArrayName="tagGroups" class="tag-groups-container row">
     <div
       class="form-group col-xs-12 col-md-4"
@@ -39,16 +24,23 @@
       ></textarea>
     </div>
   </div>
-  <div class="container row bottom-buttons-container form-group">
+
+  <div
+    class="d-flex flex-column pl-0 bottom-buttons-container col-xs-12 col-md-3"
+  >
     <button
-      class="btn btn-secondary add-button"
+      class="btn btn-secondary add-button align-left mb-1 bottom-button"
       type="button"
       (click)="onAddTagGroupInput()"
     >
       Add Hashtag Group
     </button>
 
-    <button class="btn btn-danger" type="button" (click)="onResetForm()">
+    <button
+      class="btn btn-danger align-left bottom-button"
+      type="button"
+      (click)="onResetForm()"
+    >
       Reset Form
     </button>
   </div>

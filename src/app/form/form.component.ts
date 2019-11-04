@@ -43,8 +43,11 @@ export class FormComponent implements OnInit {
 
   onSubmit() {
     this.formSubmitted = true;
-    const { tagGroups } = this.hashTagForm.value;
+    let { tagGroups } = this.hashTagForm.value;
     const tagGroupsCount = tagGroups.length;
+
+    tagGroups = tagGroups.map(group => group.trim());
+    //TODO remove any strings that are not in #.. format
 
     const removeDups = arr => {
       return arr.filter((tag, idx, array) => {
@@ -67,6 +70,8 @@ export class FormComponent implements OnInit {
       if (occurrences[key] === tagGroupsCount) return occurrences[key];
     });
 
-    this.result = commonTags.length ? commonTags.join(", ") : "No Matches";
+    this.result = commonTags.length
+      ? commonTags.join(", ")
+      : "No Common Hashtags found.";
   }
 }
