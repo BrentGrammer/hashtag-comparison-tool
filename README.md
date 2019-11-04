@@ -1,6 +1,9 @@
-# Find Common
+# Hashtag Comparison Tool
 
-[Working App Deployed on Firebase](https://hashtag-compare-app.firebaseapp.com/)
+## [Working App Deployed on Firebase](https://hashtag-compare-app.firebaseapp.com/)
+
+- Enter a group of hashtags
+- Get a list of hastags which are common to all groups entered
 
 ### Prerequisites:
 
