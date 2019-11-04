@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormArray, FormControl, Validators } from "@angular/forms";
+import * as copy from "copy-to-clipboard";
 
 @Component({
   selector: "app-form",
@@ -8,7 +9,7 @@ import { FormGroup, FormArray, FormControl, Validators } from "@angular/forms";
 })
 export class FormComponent implements OnInit {
   hashTagForm: FormGroup;
-  result: string;
+  result: string[];
   formSubmitted: boolean;
 
   constructor() {}
@@ -34,6 +35,10 @@ export class FormComponent implements OnInit {
 
   getTagGroupControls() {
     return (this.hashTagForm.get("tagGroups") as FormArray).controls;
+  }
+
+  copyToClipboard(matchText) {
+    copy(matchText);
   }
 
   onResetForm() {
@@ -70,7 +75,12 @@ export class FormComponent implements OnInit {
     });
 
     this.result = commonTags.length
-      ? commonTags.join(", ")
-      : "No Common Hashtags found.";
+      ? commonTags
+      : ["No Common Hashtags found."];
+
+    setTimeout(() => {
+      const scrollingElement = document.scrollingElement || document.body;
+      scrollingElement.scrollTop = scrollingElement.scrollHeight;
+    }, 100);
   }
 }

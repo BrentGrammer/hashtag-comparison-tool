@@ -16,7 +16,7 @@
         </button>
       </div>
       <textarea
-        class="form-control"
+        [className]="'form-control' + ' textarea-' + i"
         rows="4"
         cols="50"
         placeholder="Copy and Paste Hashtags here..."
@@ -63,7 +63,13 @@
   <p *ngIf="!formSubmitted; else matches">
     Please enter hashtags and press 'Submit' to get matching results.
   </p>
-  <p *ngIf="formSubmitted">
-    {{ result }}
-  </p>
+  <div *ngIf="formSubmitted">
+    <p
+      class="match-text mb-0 text-success font-weight-bold"
+      *ngFor="let match of result; let i = index"
+      (click)="copyToClipboard(match)"
+    >
+      {{ match }}
+    </p>
+  </div>
 </div>

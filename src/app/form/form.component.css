@@ -15,6 +15,11 @@ button:disabled {
   pointer-events: all !important;
 }
 
+.match-text {
+  cursor: pointer;
+  font-size: 24px;
+}
+
 .results-container {
   margin-top: 20px;
 }
