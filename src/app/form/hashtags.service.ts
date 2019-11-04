@@ -21,7 +21,7 @@ export class HashtagsService {
     }, {});
 
     const commonTags = Object.keys(hashTagCounts).filter(tag => {
-      if (hashTagCounts[tag] === tagGroupsCount) return hashTagCounts[tag];
+      if (hashTagCounts[tag] === tagGroupsCount) return tag;
     });
 
     return commonTags.length ? commonTags : ["No Common Hashtags found."];
