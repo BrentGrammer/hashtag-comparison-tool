@@ -12,7 +12,9 @@
 
 ## DEPLOYMENT
 
-#### PREPARING FOR DEPLOYMENT:
+### PREPARING FOR DEPLOYMENT:
+
+- Install Firebase cli if needed: `npm install -g firebase-tools`
 
 - Use Environment variables:
 
@@ -29,14 +31,14 @@
 
 - Build the app (run this in the project folder): `ng build --prod`
 
-#### Deploying to Firebase Hosting
+### DEPLOYING TO FIREBASE HOSTING
 
-1. Install Firebase cli: `npm install -g firebase-tools`
-1. login to firebase: `firebase login`
-1. In Angular project folder, run `firebase init` to link the project to Firebase:
+1. `ng build --prod`
+1. `firebase login`
+1. `firebase init` (In Angular project folder) to link the project to Firebase:
    - Select the Hosting option, press `spacebar` and `Enter`
-   - Select project prompt -- Create a new project if not done already (_NOTE: name must be unique and not taken_)
+   - Create a new project if not done already (_NOTE: name must be unique and not taken_)
    - Select `y` to make the app a SPA and reroute all requests to index.html
    - Set the build folder to dist/<YourAppName> -- check the folder name in your project where your index.html is in the built files
    - **Do NOT overwrite the Index.html** - select `n`
-1. Run `firebase deploy`
+1. `firebase deploy`
