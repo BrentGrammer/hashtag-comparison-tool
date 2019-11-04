@@ -1,0 +1,77 @@
+<form [formGroup]="hashTagForm">
+  <h4>Find common hashtags used on highly viewed Instagram posts!</h4>
+  <h5>Suggested Use:</h5>
+  <ol>
+    <li>
+      Look up a hashtag or search Instagram (or another social media platform)
+      to get a list of posts.
+    </li>
+    <li>
+      Copy and paste the hashtags from the posts with a high like count and
+      paste into a Hashtag group per post.
+    </li>
+    <li>Click the Submit button to display a list of common hashtags to.</li>
+  </ol>
+  <hr />
+
+  <div formArrayName="tagGroups" class="tag-groups-container row">
+    <div
+      class="form-group col-xs-12 col-md-4"
+      *ngFor="let tagGroups of getTagGroupControls(); let i = index"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <h6>Hash Tag Group {{ i + 1 }}</h6>
+        <button type="button" class="close" aria-label="Close">
+          <span
+            *ngIf="i > 1"
+            aria-hidden="true"
+            (click)="onRemoveTagGroupInput(i)"
+            >&times;</span
+          >
+        </button>
+      </div>
+      <textarea
+        class="form-control"
+        rows="4"
+        cols="50"
+        placeholder="Copy and Paste Hashtags here..."
+        [formControlName]="i"
+      ></textarea>
+    </div>
+  </div>
+  <div class="container row bottom-buttons-container form-group">
+    <button
+      class="btn btn-secondary add-button"
+      type="button"
+      (click)="onAddTagGroupInput()"
+    >
+      Add Hashtag Group
+    </button>
+
+    <button class="btn btn-danger" type="button" (click)="onResetForm()">
+      Reset Form
+    </button>
+  </div>
+  <p class="help-block" *ngIf="!hashTagForm.valid && hashTagForm.touched">
+    Please make sure all fields are not empty and hashtags are in '#hashtag1
+    #hashtag2 ...' format.
+  </p>
+
+  <button
+    class="btn btn-primary form-control"
+    type="submit"
+    [disabled]="!hashTagForm.valid"
+    (click)="onSubmit()"
+  >
+    Submit
+  </button>
+</form>
+<div class="results-container">
+  <h4>Common Hashtags:</h4>
+  <p *ngIf="!formSubmitted; else matches">
+    Please enter hashtags and press 'Submit' to get matching results.
+  </p>
+  <p *ngIf="formSubmitted">
+    {{ result }}
+  </p>
+</div>
